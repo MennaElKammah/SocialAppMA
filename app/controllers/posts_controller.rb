@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
 
   # GET /posts
   # GET /posts.json
@@ -57,6 +57,22 @@ end
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+
+  #upvote_from user
+  #downvote_from user
+  def upvote
+    @post.upvote_from current_user
+    respond_to do |format|
+     # format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.js #{ render :file =>"posts/post.js.erb" }
+    end
+  end
+
+  def downvote
+    @post.downvote_from current_user
+    redirect_to posts_path
   end
 
   private

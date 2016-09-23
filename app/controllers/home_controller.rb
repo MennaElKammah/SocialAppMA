@@ -8,4 +8,10 @@ class HomeController < ApplicationController
   def index
   	@post = Post.new
   end
+
+  def profile
+  	@post = Post.new
+  	@current_user_posts = current_user.posts
+  end
+
 end

@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
-
+<div id="post_#{@post.id}">
+  <%= "post_#{@post.id}" %>
 <p>
   <strong>User:</strong>
   <%= @post.user.email %>
@@ -10,6 +11,7 @@
   <%= @post.content %>
 </p>
 
+<% if (@post.attachment).present? %>
 <p>
   <strong>Attachment:</strong>
   <div class="row">
@@ -20,7 +22,22 @@
     </div>
   </div>
 </p>
-
+<% end %>
+<div class="caption" style="text-align:center;">
+  <%= link_to like_post_path(@post), class: "like", method: :put, remote: true do %>
+  <button type="button" class="btn btn-info" aria-label="Left Align">
+    <span class="glyphicon glyphicon-thumbs-up glyphocon-align-center" aria-hidden="true"></span>
+    <span class="badge"><%= @post.get_upvotes.size %></span>
+  </button>
+  <% end %>
+  <%= link_to unlike_post_path(@post), class: "like", method: :put do %>
+  <button type="button" class="btn btn-info" aria-label="Left Align">
+    <span class="glyphicon glyphicon-thumbs-down glyphocon-align-center" aria-hidden="true"></span>
+    <span class="badge"><%= @post.get_downvotes.size %></span>
+  </button>
+  <% end %>
+</div>
+</div>
 
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
