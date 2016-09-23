@@ -1,0 +1,21 @@
+<h2> <%= current_user.email %> </h2>
+
+<%= render 'new_post', remote: false %>
+<br /><hr /><br />
+
+<% @current_user_posts.each do |current_user_post| %>
+<div id="post-<%= current_user_post.id %>" class="post">
+  <div class="row">
+   
+
+
+    <div class="col-lg-15 col-lg-offset-2 well">
+      <div class="row">
+        <%= render 'posts/post', :@post => current_user_post %>
+    </div>
+  </div>
+  <br /><hr /><br />
+      </div>
+  </div>
+ <% end %>
+ 

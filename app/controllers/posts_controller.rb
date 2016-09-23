@@ -63,16 +63,24 @@ end
   #upvote_from user
   #downvote_from user
   def upvote
-    @post.upvote_from current_user
-    respond_to do |format|
-     # format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
-      format.js #{ render :file =>"posts/post.js.erb" }
+    if current_user.voted_for? @post
+      puts "true ======================\n\n"
+      @post.unvote_up current_user
+    #  @post.downvote
+      #redirect_to root_path
+    else
+      @post.upvote_from current_user
+      redirect_to posts_path
     end
+
   end
 
   def downvote
     @post.downvote_from current_user
     redirect_to posts_path
+
+ 
+
   end
 
   private
